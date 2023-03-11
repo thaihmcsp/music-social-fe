@@ -17,7 +17,7 @@ export default function Header() {
 
   const logout = () => {
     logoutUser();
-    localStorage.setItem("user", JSON.stringify(null));
+    // localStorage.setItem("user", JSON.stringify(null));
     console.log(isAuthenticated);
   };
   // search function

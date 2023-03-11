@@ -38,7 +38,7 @@ export default function Login() {
       if (loginData.success) {
         setAlertLogin({ type: "danger", message: loginData.message });
         setTimeout(() => setAlertLogin(null), 5000);
-        localStorage.setItem("user", JSON.stringify(loginData.user));
+        // localStorage.setItem("user", JSON.stringify(loginData.user));
         notification.success({
           message: loginData.message,
         });
@@ -49,7 +49,7 @@ export default function Login() {
           history.push("/home");
         }
       } else {
-        localStorage.setItem("user", JSON.stringify(null));
+        // localStorage.setItem("user", JSON.stringify(null));
         alert("UserEmail or password incorrect. Please try again");
       }
     } catch (error) {
