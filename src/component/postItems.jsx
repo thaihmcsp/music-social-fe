@@ -104,7 +104,7 @@ export default function PostItems({
       </div>
       <PostLikeAndComment
         musicId={_id}
-        likeCount={musicLike.length}
+        musiclikeCount={musicLike.length}
         isLike={musicLike.includes(userId)}
         userId={userId}
       />

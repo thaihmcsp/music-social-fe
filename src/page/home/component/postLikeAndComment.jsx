@@ -8,31 +8,31 @@ const LikeIcon = (style, addStyle) => {
   return <LikeFilled style={{ ...style, ...addStyle }} />;
 };
 
-function PostLikeAndComment(props) {
+function PostLikeAndComment({ isLike, musiclikeCount, musicId, userId }) {
   const [addStyle, setAddStyle] = useState(() => {
-    if (props.isLike) {
+    if (isLike) {
       return { color: "blue" };
     }
 
-    return {};
+    return { color: "#9d99c3" };
   });
 
-  const [likeCount, setlikeCount] = useState(props.likeCount);
+  const [likeCount, setlikeCount] = useState(musiclikeCount);
   const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
   const clickLike = async () => {
     try {
       const response = await axios.post(
-        `${apiUrl}/music/like/${props.musicId}`,
+        `${apiUrl}/music/like/${musicId}`,
         {},
         { headers: { Authorization: "Bearer " + token } }
       );
 
       const listLike = response.data.data.musicLike;
       setlikeCount(listLike.length);
-      if (listLike.includes(props.userId)) {
+      if (listLike.includes(userId)) {
         return setAddStyle({ color: "blue" });
       }
-      setAddStyle({});
+      setAddStyle({ color: "#9d99c3" });
     } catch (error) {
       console.log(error);
     }
