@@ -10,20 +10,17 @@ export default function PostDisplay() {
     postState: { searchpost, posts, postsLoading },
     getPosts,
   } = useContext(PostContext);
-  console.log(searchpost);
 
   // start get all posts
   useEffect(() => getPosts(), []);
 
   // search filter post
   const postData = posts.filter((post) => {
-    console.log("searchPost", searchpost);
     if (searchpost == "") {
       if (post?.music) return post;
     }
     return post.user.userName == searchpost;
   });
-  console.log("postData_", postData);
 
   if (postsLoading) {
     return (
@@ -44,7 +41,6 @@ export default function PostDisplay() {
     return (
       <div className="postdisplay post-list post-list-0 ">
         {postData.map((post, i) => {
-          console.log("post_1", post?.music?._id);
           return <PostItems post={post} key={i} />;
         })}
       </div>
