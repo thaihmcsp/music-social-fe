@@ -1,3 +1,4 @@
+import { notification } from "antd";
 import React, { useContext, useState } from "react";
 import GoogleLogin from "react-google-login";
 import { Link, useHistory } from "react-router-dom";
@@ -34,10 +35,13 @@ export default function Login() {
       // call the function AuthContext use this page state
       const loginData = await loginUser(login);
 
-      console.log(loginData);
       if (loginData.success) {
         setAlertLogin({ type: "danger", message: loginData.message });
         setTimeout(() => setAlertLogin(null), 5000);
+        localStorage.setItem("user", JSON.stringify(loginData.user));
+        notification.success({
+          message: loginData.message,
+        });
         if (loginData.message == "Admin logged in successfully") {
           history.push("/admin");
         }
@@ -45,6 +49,7 @@ export default function Login() {
           history.push("/home");
         }
       } else {
+        localStorage.setItem("user", JSON.stringify(null));
         alert("UserEmail or password incorrect. Please try again");
       }
     } catch (error) {
