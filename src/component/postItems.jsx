@@ -12,18 +12,17 @@ import {
 import { FavoriteContext } from "../contexts/farvoriteContext";
 import { MusicContext } from "../contexts/musicContext";
 import edit from "../component/img/editing.png";
+import PostLikeAndComment from "../page/home/component/postLikeAndComment";
 
 export default function PostItems({
   post: {
     user: { userName, userAvatar },
     postContent,
-    music: { _id, musicName, musicImg, musicAuthor, musicFile },
+    music: { _id, musicName, musicImg, musicAuthor, musicFile, musicLike },
   },
 }) {
-  console.log("_id", _id);
   // set state for play btn
   const { getIdMusicHome } = useContext(MusicContext);
-  console.log("getMusicHome_", getIdMusicHome);
   const {
     authState: {
       user: { _id: userId },
@@ -34,7 +33,9 @@ export default function PostItems({
   const musicError = document.querySelector(".music__noti");
   const musicPlayed = document.querySelector(".music__audio");
   const musicFooter = document.querySelector(".music-footer .music__audio");
-  const musicFooterError = document.querySelector(".music-footer .music-notify");
+  const musicFooterError = document.querySelector(
+    ".music-footer .music-notify"
+  );
 
   // set  music state at MusicContext to data music selected
   const getMusicSelected = async (music) => {
@@ -59,7 +60,7 @@ export default function PostItems({
     const formData = new FormData();
     formData.append("user", userId);
     formData.append("music", _id);
-    console.log(userId, _id);
+
     axios
       .post(`${apiUrl}/favorites`, formData)
       .then((response) => {
@@ -101,6 +102,12 @@ export default function PostItems({
 
         <audio className="audio" src={`${apiUploadFileMp3}${musicFile}`} />
       </div>
+      <PostLikeAndComment
+        musicId={_id}
+        likeCount={musicLike.length}
+        isLike={musicLike.includes(userId)}
+        userId={userId}
+      />
       {/* <div className="comment">
         <form action>
           <input
