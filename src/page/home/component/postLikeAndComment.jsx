@@ -17,7 +17,6 @@ function PostLikeAndComment(props) {
     return {};
   });
 
-  const [isLike, setIsLike] = useState(props.isLike);
   const [likeCount, setlikeCount] = useState(props.likeCount);
   const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
   const clickLike = async () => {
@@ -29,7 +28,6 @@ function PostLikeAndComment(props) {
       );
 
       const listLike = response.data.data.musicLike;
-      setIsLike(() => listLike.includes(props.userId));
       setlikeCount(listLike.length);
       if (listLike.includes(props.userId)) {
         return setAddStyle({ color: "blue" });
