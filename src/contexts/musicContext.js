@@ -1,8 +1,9 @@
 import axios from "axios";
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { musicReducer } from "../reducers/musicReducer";
 import {
   api,
+  apiPost,
   apiUrl,
   DELETE_MUSIC,
   MUSICS_LOADED_FAIL,
@@ -12,6 +13,8 @@ import {
   MUSIC_CLICK_HOME,
   MUSIC_CLICK_NEXT,
   MUSIC_CLICK_PRE,
+  POSTS_LOADED_FAIL,
+  POSTS_LOADED_SUCCESS,
 } from "./constants";
 import { statemusic } from "../reducers/musicReducer";
 import { PostContext } from "./postContext";
@@ -24,12 +27,27 @@ const MusicContextProvider = ({ children }) => {
 
   // Get all posts
   const getMusics = async () => {
+    // try {
+    //   const response = await axios.get(`${apiUrl}/music`);
+    //   if (response.data.success) {
+    //     dispatch({
+    //       type: MUSICS_LOADED_SUCCESS,
+    //       payload: response.data.musics,
+    //     });
+    //   }
+    // } catch (error) {
+    //   dispatch({ type: MUSICS_LOADED_FAIL });
+    // }
     try {
-      const response = await axios.get(`${apiUrl}/music`);
+      const response = await axios.get(`${apiPost}/datapost`);
       if (response.data.success) {
+        console.log(
+          "postList_",
+          response.data.posts.map((e) => e.music)
+        );
         dispatch({
           type: MUSICS_LOADED_SUCCESS,
-          payload: response.data.musics,
+          payload: response.data.posts.map((e) => e.music),
         });
       }
     } catch (error) {

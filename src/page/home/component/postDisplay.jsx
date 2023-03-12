@@ -5,6 +5,7 @@ import { PostContext } from "../../../../src/contexts/postContext";
 import { CommentContext } from "../../../contexts/cmtContext";
 
 export default function PostDisplay() {
+  console.log("PostDisplay");
   // get global data by useContext
   const {
     postState: { searchpost, posts, postsLoading },
@@ -21,7 +22,7 @@ export default function PostDisplay() {
     }
     return post.user.userName == searchpost;
   });
-
+  console.log("postData", postData);
   if (postsLoading) {
     return (
       <div style={{ width: "100%", height: "100vh", position: "absolute" }}>
