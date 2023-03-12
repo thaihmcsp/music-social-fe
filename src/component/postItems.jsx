@@ -33,8 +33,10 @@ export default function PostItems({
   const musicPlayed = document.querySelector(".music__audio");
   const musicFooter = document.querySelector(".music-footer .music__audio");
   const musicFooterError = document.querySelector(".music-footer .music-notify");
+
   const progress = document.querySelector("#progress__input");
   console.log("progress_", progress);
+
   // set  music state at MusicContext to data music selected
   const getMusicSelected = async (music) => {
     console.log("music_", music);

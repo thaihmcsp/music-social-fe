@@ -5,6 +5,7 @@ import { PostContext } from "../../../../src/contexts/postContext";
 import { CommentContext } from "../../../contexts/cmtContext";
 
 export default function PostDisplay() {
+  console.log("PostDisplay");
   // get global data by useContext
   const {
     postState: { searchpost, posts, postsLoading },
