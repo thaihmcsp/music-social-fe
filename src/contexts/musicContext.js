@@ -10,8 +10,11 @@ import {
   MUSIC_CLICK,
   MUSIC_CLICK_FAVORITE,
   MUSIC_CLICK_HOME,
+  MUSIC_CLICK_NEXT,
+  MUSIC_CLICK_PRE,
 } from "./constants";
 import { statemusic } from "../reducers/musicReducer";
+import { PostContext } from "./postContext";
 
 export const MusicContext = createContext();
 
@@ -43,20 +46,34 @@ const MusicContextProvider = ({ children }) => {
   useEffect(() => getMusics(), []);
   // Find id music when user click play music at home page
   const getIdMusicHome = (musicIdHome) => {
-    const musicGet = musicState.musics.find(
-      (music) => music._id === musicIdHome
-    );
+    const musicGet = musicState.musics.find((music) => music._id === musicIdHome);
+    console.log("musicGet_", musicGet, musicState);
     dispatch({
       type: MUSIC_CLICK_HOME,
       payload: musicGet,
     });
   };
-
+  // Tìm ra bài hát kế tiếp (Bài hát kế tiếp so với bài hát hiện tại)
+  const getIdMusicNext = (musicIdHome) => {
+    const musicGet = musicState.musics.findIndex((music) => music._id === musicIdHome);
+    console.log("getIdMusicNext", musicGet, musicState);
+    dispatch({
+      type: MUSIC_CLICK_NEXT,
+      payload: musicState.musics[musicGet + 1],
+    });
+  };
+  // Tìm ra bài hát pre (Bài hát pre so với bài hát hiện tại)
+  const getIdMusicPre = (musicIdHome) => {
+    const musicGet = musicState.musics.findIndex((music) => music._id === musicIdHome);
+    console.log("musicGet_", musicGet, musicState);
+    dispatch({
+      type: MUSIC_CLICK_PRE,
+      payload: musicState.musics[musicGet + 1],
+    });
+  };
   // Find id music when user click play music at favorite page
   const getIdMusicFavorite = (musicIdFavorite) => {
-    const musicGet = musicState.musics.find(
-      (music) => music._id === musicIdFavorite
-    );
+    const musicGet = musicState.musics.find((music) => music._id === musicIdFavorite);
     dispatch({
       type: MUSIC_CLICK_FAVORITE,
       payload: musicGet,
@@ -71,12 +88,7 @@ const MusicContextProvider = ({ children }) => {
     getIdMusicHome,
     getIdMusicFavorite,
   };
-  return (
-    <MusicContext.Provider value={musicContextData}>
-      {" "}
-      {children}{" "}
-    </MusicContext.Provider>
-  );
+  return <MusicContext.Provider value={musicContextData}> {children} </MusicContext.Provider>;
 };
 
 export default MusicContextProvider;

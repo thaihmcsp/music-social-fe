@@ -1,15 +1,27 @@
 import React, { useContext, useRef, useState } from "react";
 import { apiUploadFileMp3, apiUploadImgMp3 } from "../../../contexts/constants";
 import { MusicContext } from "../../../contexts/musicContext";
+import { PostContext } from "../../../contexts/postContext";
 import waringImg from "../component/img/warning.png";
 
 export default function Music() {
   // get data musicHome at MusicContext
   const {
     musicState: {
-      musicHome: { musicFile, musicImg, musicName, musicAuthor },
+      musicHome: { _id, musicFile, musicImg, musicName, musicAuthor },
     },
+    getIdMusicHome,
+    getIdMusicNext,
+    getIdMusicPre,
   } = useContext(MusicContext);
+  const {
+    postState: { searchpost, posts, postsLoading },
+    getPosts,
+  } = useContext(PostContext);
+
+  // console.log("postHome_", posts);
+  // console.log("musicFile_", musicFile);
+  // console.log("musicHome__", _id);
 
   const playBtn = document.querySelector(".player-play");
   const urlMusic = document.querySelector(".progress__song");
@@ -23,7 +35,7 @@ export default function Music() {
       alert("Please choose the song you want to listen to!!!");
     } else {
       e.preventDefault();
-      if (isPlay) {
+      if (isPlay || playBtn.classList.contains("fa-pause")) {
         urlMusic.pause();
         playBtn.classList.remove("fa-pause");
       } else {
@@ -35,6 +47,21 @@ export default function Music() {
 
       setPlay(!isPlay);
     }
+  };
+  // xử lý khi tua nhạc
+  const progressChange = (e) => {
+    const seekTime = (urlMusic.duration / 1000) * e.target.value;
+    urlMusic.currentTime = seekTime;
+  };
+  const handleNext = async (e) => {
+    e.preventDefault();
+    await getIdMusicNext(_id);
+    urlMusic.play();
+  };
+  const handlePre = async (e) => {
+    e.preventDefault();
+    await getIdMusicPre(_id);
+    urlMusic.play();
   };
   return (
     <section className="music">
@@ -53,7 +80,15 @@ export default function Music() {
           <h4 className="player-title tilte">{musicName}</h4>
           <span className="player-author author">{musicAuthor}</span>
           <div className="progress">
-            <input id="progress__input" type="range" defaultValue={0} step={1} min={0} max={100} />
+            <input
+              id="progress__input"
+              type="range"
+              defaultValue={0}
+              step={1}
+              min={0}
+              max={1000}
+              onChange={progressChange}
+            />
             <audio
               // onLoadedData={handleLoadedData}
               src={`${apiUploadFileMp3}${musicFile}`}
@@ -63,9 +98,9 @@ export default function Music() {
           </div>
         </div>
         <div className="music__audio-btn">
-          <i className="fa fa-backward player-prev" />
+          <i onClick={handlePre} className="fa fa-backward player-prev" />
           <i onClick={handlePausePlayClick} className="fa fa-play player-play" />
-          <i className="fa fa-forward player-next" />
+          <i onClick={handleNext} className="fa fa-forward player-next" />
         </div>
       </div>
     </section>

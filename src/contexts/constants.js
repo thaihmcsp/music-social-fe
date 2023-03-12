@@ -4,9 +4,9 @@ export const api = "http://localhost:5000/";
 // *** USER ***
 // api auth user
 export const apiUrl =
-    process.env.NODE_ENV !== "production" ?
-    `${api}api` :
-    "https://sleepy-inlet-56101.herokuapp.com/api";
+  process.env.NODE_ENV !== "production"
+    ? `${api}api`
+    : "https://sleepy-inlet-56101.herokuapp.com/api";
 
 // access token
 export const LOCAL_STORAGE_TOKEN_NAME = "social-media-web";
@@ -19,21 +19,21 @@ export const USERS_LOADED_SUCCESS = "USERS_LOADED_SUCCESS";
 // *** MUSIC ****
 // api upload music
 export const apiUpload =
-    process.env.NODE_ENV !== "production" ?
-    `${api}uploadFile/` :
-    "https://sleepy-inlet-56101.herokuapp.com/api";
+  process.env.NODE_ENV !== "production"
+    ? `${api}uploadFile/`
+    : "https://sleepy-inlet-56101.herokuapp.com/api";
 
 // api upload Image music
 export const apiUploadImgMp3 =
-    process.env.NODE_ENV !== "production" ?
-    `${api}uploadFile/ImgMp3/` :
-    "https://sleepy-inlet-56101.herokuapp.com/api";
+  process.env.NODE_ENV !== "production"
+    ? `${api}uploadFile/ImgMp3/`
+    : "https://sleepy-inlet-56101.herokuapp.com/api";
 
 // api upload File music
 export const apiUploadFileMp3 =
-    process.env.NODE_ENV !== "production" ?
-    `${api}uploadFile/Mp3/` :
-    "https://sleepy-inlet-56101.herokuapp.com/api";
+  process.env.NODE_ENV !== "production"
+    ? `${api}uploadFile/Mp3/`
+    : "https://sleepy-inlet-56101.herokuapp.com/api";
 
 // music
 export const MUSICS_LOADED_SUCCESS = "MUSICS_LOADED_SUCCESS";
@@ -43,15 +43,17 @@ export const FIND_MUSIC = "FIND_MUSIC";
 export const MUSICS_LOADED_FAIL = "MUSICS_LOADED_FAIL";
 export const MUSIC_CLICK = "MUSIC_CLICK";
 export const MUSIC_CLICK_HOME = "MUSIC_CLICK_HOME";
+export const MUSIC_CLICK_NEXT = "MUSIC_CLICK_NEXT";
+export const MUSIC_CLICK_PRE = "MUSIC_CLICK_PRE";
 export const MUSIC_CLICK_FAVORITE = "MUSIC_CLICK_FAVORITE";
 export const UPDATE_MUSIC = "UPDATE_MUSIC";
 
 // *** POST ***
 // api POST a new post to db
 export const apiPost =
-    process.env.NODE_ENV !== "production" ?
-    `${api}api/posts` :
-    "https://sleepy-inlet-56101.herokuapp.com/api";
+  process.env.NODE_ENV !== "production"
+    ? `${api}api/posts`
+    : "https://sleepy-inlet-56101.herokuapp.com/api";
 
 // state post in context
 export const POSTS_LOADED_SUCCESS = "POSTS_LOADED_SUCCESS";
@@ -66,9 +68,9 @@ export const POST_SEARCH = "POST_SEARCH";
 // *** FAVORITE ***
 // api FAVORITE a new post to db
 export const apiFavorite =
-    process.env.NODE_ENV !== "production" ?
-    `${api}api/favorites` :
-    "https://sleepy-inlet-56101.herokuapp.com/api";
+  process.env.NODE_ENV !== "production"
+    ? `${api}api/favorites`
+    : "https://sleepy-inlet-56101.herokuapp.com/api";
 
 // state post in context
 export const FAVORITES_LOADED_SUCCESS = "FAVORITES_LOADED_SUCCESS";
@@ -82,9 +84,9 @@ export const FAVORITE_CLICK_HOME = "MUSIC_CLICK_HOME";
 // *** COMMENT ***
 // api COMMENT a new post to db
 export const apiCmt =
-    process.env.NODE_ENV !== "production" ?
-    `${api}api/comments` :
-    "https://sleepy-inlet-56101.herokuapp.com/api";
+  process.env.NODE_ENV !== "production"
+    ? `${api}api/comments`
+    : "https://sleepy-inlet-56101.herokuapp.com/api";
 
 // state post in context
 export const COMMENTS_LOADED_SUCCESS = "COMMENTS_LOADED_SUCCESS";
