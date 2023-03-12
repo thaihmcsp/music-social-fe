@@ -41,13 +41,12 @@ const MusicContextProvider = ({ children }) => {
     try {
       const response = await axios.get(`${apiPost}/datapost`);
       if (response.data.success) {
-        console.log(
-          "postList_",
-          response.data.posts.map((e) => e.music)
-        );
         dispatch({
           type: MUSICS_LOADED_SUCCESS,
-          payload: response.data.posts.map((e) => e.music),
+          payload: response.data.posts.map((e) => {
+            const newMusic = {...e.music, postId: e._id }
+            return newMusic
+          }).reverse(),
         });
       }
     } catch (error) {
@@ -71,21 +70,19 @@ const MusicContextProvider = ({ children }) => {
     });
   };
   // Tìm ra bài hát kế tiếp (Bài hát kế tiếp so với bài hát hiện tại)
-  const getIdMusicNext = (musicIdHome) => {
-    const musicGet = musicState.musics.findIndex((music) => music._id === musicIdHome);
-    console.log("getIdMusicNext", musicGet, musicState);
+  const getIdMusicNext = (musicPostIdHome) => {
+    const musicGet = musicState.musics.findIndex((music) => music.postId === musicPostIdHome);
     dispatch({
       type: MUSIC_CLICK_NEXT,
-      payload: musicState.musics[musicGet + 1],
+      payload: musicState.musics[musicGet + 1] ? musicState.musics[musicGet + 1] : musicState.musics[0],
     });
   };
   // Tìm ra bài hát pre (Bài hát pre so với bài hát hiện tại)
-  const getIdMusicPre = (musicIdHome) => {
-    const musicGet = musicState.musics.findIndex((music) => music._id === musicIdHome);
-    console.log("musicGet_", musicGet, musicState);
+  const getIdMusicPre = (musicPostIdHome) => {
+    const musicGet = musicState.musics.findIndex((music) => music.postId === musicPostIdHome);
     dispatch({
       type: MUSIC_CLICK_PRE,
-      payload: musicState.musics[musicGet + 1],
+      payload: musicState.musics[musicGet - 1] ? musicState.musics[musicGet - 1] : musicState.musics[musicState.musics.length - 1],
     });
   };
   // Find id music when user click play music at favorite page

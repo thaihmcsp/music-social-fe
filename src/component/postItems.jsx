@@ -35,11 +35,9 @@ export default function PostItems({
   const musicFooterError = document.querySelector(".music-footer .music-notify");
 
   const progress = document.querySelector("#progress__input");
-  console.log("progress_", progress);
 
   // set  music state at MusicContext to data music selected
   const getMusicSelected = async (music) => {
-    console.log("music_", music);
     await getIdMusicHome(music);
     const playBtn = document.querySelector(".player-play");
     const urlMusic = document.querySelector(".progress__song");
@@ -51,9 +49,7 @@ export default function PostItems({
       }
     };
     playBtn.classList.add("fa-pause");
-    console.log("playBtn_", playBtn);
-    console.log("urlMusic", urlMusic);
-    console.log("urlMusic", urlMusic.play());
+    urlMusic.play()
     musicError.style.display = "none";
     musicPlayed.style.display = "block";
     musicFooter.style.display = "flex";

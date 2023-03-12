@@ -8,7 +8,7 @@ export default function Music() {
   // get data musicHome at MusicContext
   const {
     musicState: {
-      musicHome: { _id, musicFile, musicImg, musicName, musicAuthor },
+      musicHome: { _id, musicFile, musicImg, musicName, musicAuthor, postId },
     },
     getIdMusicHome,
     getIdMusicNext,
@@ -21,7 +21,7 @@ export default function Music() {
 
   // console.log("postHome_", posts);
   // console.log("musicFile_", musicFile);
-  // console.log("musicHome__", _id);
+  console.log("musicHome__", _id, postId);
 
   const playBtn = document.querySelector(".player-play");
   const urlMusic = document.querySelector(".progress__song");
@@ -55,12 +55,12 @@ export default function Music() {
   };
   const handleNext = async (e) => {
     e.preventDefault();
-    await getIdMusicNext(_id);
+    await getIdMusicNext(postId);
     urlMusic.play();
   };
   const handlePre = async (e) => {
     e.preventDefault();
-    await getIdMusicPre(_id);
+    await getIdMusicPre(postId);
     urlMusic.play();
   };
   return (
