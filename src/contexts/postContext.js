@@ -45,10 +45,26 @@ const PostContextProvider = ({ children }) => {
   };
 
   // search posts
-  const searchPost = (value) => {
-    console.log(value);
-
-    dispatch({ type: POST_SEARCH, payload: value });
+  const searchPost = async (value) => {
+    try {
+      if (value === "") {
+        const response = await axios.get(`${apiPost}/datapost`);
+        if (response.data.success) {
+          dispatch({
+            type: POSTS_LOADED_SUCCESS,
+            payload: response.data.posts,
+          });
+        }
+        return;
+      }
+      console.log(60, `${apiPost}/search/${value}`)
+      const response = await axios.get(`${apiPost}/search/${value}`);
+      if (response.data.success) {
+        dispatch({ type: POST_SEARCH, payload: response.data.data });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Delete post

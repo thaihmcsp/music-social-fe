@@ -22,6 +22,8 @@ export default function PostDisplay() {
     return post.user.userName == searchpost;
   });
 
+  console.log(24, searchpost );
+
   if (postsLoading) {
     return (
       <div style={{ width: "100%", height: "100vh", position: "absolute" }}>
