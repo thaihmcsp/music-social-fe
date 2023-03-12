@@ -48,13 +48,7 @@ const PostContextProvider = ({ children }) => {
   const searchPost = async (value) => {
     try {
       if (value === "") {
-        const response = await axios.get(`${apiPost}/datapost`);
-        if (response.data.success) {
-          dispatch({
-            type: POSTS_LOADED_SUCCESS,
-            payload: response.data.posts,
-          });
-        }
+        dispatch({ type: POST_SEARCH, payload: '' });
         return;
       }
       console.log(60, `${apiPost}/search/${value}`)

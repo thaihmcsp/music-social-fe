@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PostItems from "../../../component/postItems";
 import { PostContext } from "../../../../src/contexts/postContext";
 // import Ripple from "@bit/joshk.react-spinners-css.ripple";
@@ -11,18 +11,32 @@ export default function PostDisplay() {
     getPosts,
   } = useContext(PostContext);
 
+  const [postData, setPostData] = useState([])
   // start get all posts
   useEffect(() => getPosts(), []);
 
-  // search filter post
-  const postData = posts.filter((post) => {
-    if (searchpost == "") {
-      if (post?.music) return post;
+  useEffect(() => {
+    let newPostData = []
+    if(searchpost){
+      for (const key in searchpost) {
+        newPostData.push(searchpost[key])
+      }
+    }else{
+      newPostData = posts.filter((post) => {
+        if (post?.music) return post;
+      });
     }
-    return post.user.userName == searchpost;
-  });
 
-  console.log(24, searchpost );
+    setPostData(newPostData)
+  }, [searchpost, posts])
+
+  // search filter post
+  // let postData = searchpost ? searchpost : posts.filter((post) => {
+  //   if (searchpost == "") {
+  //     if (post?.music) return post;
+  //   }
+  //   return post.user.userName == searchpost;
+  // });
 
   if (postsLoading) {
     return (
