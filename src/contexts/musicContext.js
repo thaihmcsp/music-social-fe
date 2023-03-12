@@ -47,7 +47,6 @@ const MusicContextProvider = ({ children }) => {
   // Find id music when user click play music at home page
   const getIdMusicHome = (musicIdHome) => {
     const musicGet = musicState.musics.find((music) => music._id === musicIdHome);
-    console.log("musicGet_", musicGet, musicState);
     dispatch({
       type: MUSIC_CLICK_HOME,
       payload: musicGet,
@@ -86,6 +85,8 @@ const MusicContextProvider = ({ children }) => {
     getMusics,
     findIDMusic,
     getIdMusicHome,
+    getIdMusicNext,
+    getIdMusicPre,
     getIdMusicFavorite,
   };
   return <MusicContext.Provider value={musicContextData}> {children} </MusicContext.Provider>;

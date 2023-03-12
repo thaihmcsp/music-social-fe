@@ -47,6 +47,8 @@ export const MUSIC_CLICK_NEXT = "MUSIC_CLICK_NEXT";
 export const MUSIC_CLICK_PRE = "MUSIC_CLICK_PRE";
 export const MUSIC_CLICK_FAVORITE = "MUSIC_CLICK_FAVORITE";
 export const UPDATE_MUSIC = "UPDATE_MUSIC";
+export const MUSIC_CLICK_NEXT = "MUSIC_CLICK_NEXT";
+export const MUSIC_CLICK_PRE = "MUSIC_CLICK_PRE";
 
 // *** POST ***
 // api POST a new post to db
