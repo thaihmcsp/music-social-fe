@@ -51,7 +51,6 @@ const PostContextProvider = ({ children }) => {
         dispatch({ type: POST_SEARCH, payload: '' });
         return;
       }
-      console.log(60, `${apiPost}/search/${value}`)
       const response = await axios.get(`${apiPost}/search/${value}`);
       if (response.data.success) {
         dispatch({ type: POST_SEARCH, payload: response.data.data });
