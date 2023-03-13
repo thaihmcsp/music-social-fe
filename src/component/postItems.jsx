@@ -15,10 +15,12 @@ import {
   apiUploadFileMp3,
   apiUploadImgMp3,
   apiUrl,
+  LOCAL_STORAGE_TOKEN_NAME,
 } from "../contexts/constants";
 import { FavoriteContext } from "../contexts/farvoriteContext";
 import { MusicContext } from "../contexts/musicContext";
 import PostLikeAndComment from "../page/home/component/postLikeAndComment";
+import CommentField from "./CommentField/CommentField";
 import "./postItems.scss";
 
 export default function PostItems({
@@ -40,6 +42,7 @@ export default function PostItems({
   } = useContext(AuthContext);
   const { getComments } = useContext(CommentContext);
 
+  const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
   const musicError = document.querySelector(".music__noti");
   const musicPlayed = document.querySelector(".music__audio");
   const musicFooter = document.querySelector(".music-footer .music__audio");
@@ -148,14 +151,7 @@ export default function PostItems({
       {showListComment &&
         listComment.map((item) => {
           return (
-            <div className="list-comment-item">
-              <div className="d-flex">
-                <img src={`${apiUpload}/${item.user.userAvatar}`} />
-                <div>{item.user.userName}</div>
-              </div>
-              <div>{item.cmtContent}</div>
-              <EditOutlined />
-            </div>
+            <CommentField token={token} item={item} apiUpload={apiUpload} />
           );
         })}
       {/* <div className="comment">
