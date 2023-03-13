@@ -14,7 +14,6 @@ import MusicContextProvider from "./contexts/musicContext";
 import PostContextProvider from "./contexts/postContext";
 import FavoriteContextProvider from "./contexts/farvoriteContext";
 import CommentContextProvider from "./contexts/cmtContext";
-import test from "./page/test";
 function App() {
   return (
     <AuthContextProvider>
@@ -30,7 +29,6 @@ function App() {
                       <Route path="/login" component={Login} />{" "}
                       <Route path="/register" component={Register} />{" "}
                       <CheckRedirect path="/home" component={Home} />{" "}
-                      <CheckRedirect path="/test" component={test} />{" "}
                       <Route path="/login-admin" component={AdminLogin} />{" "}
                       <ProtectAdmin path="/admin" component={Admin} />{" "}
                     </Switch>{" "}
