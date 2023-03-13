@@ -18,7 +18,6 @@ export default function Nav() {
   const onChangeSearch = function (value) {
     setSearch(value.target.value);
     searchPost(search);
-    console.log(search);
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../contexts/authContext";
 import { apiUpload, LOCAL_STORAGE_TOKEN_NAME } from "../contexts/constants";
 import { PostContext } from "../contexts/postContext";
@@ -17,18 +17,26 @@ export default function Header() {
 
   const logout = () => {
     logoutUser();
-
+    // localStorage.setItem("user", JSON.stringify(null));
     console.log(isAuthenticated);
   };
   // search function
-  const { searchPost } = useContext(PostContext);
-
+  const { 
+    searchPost 
+  } = useContext(PostContext);
+  // const { searchData } = useSelector
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const getData = setTimeout(async () => {
+      const data = await searchPost(search);
+    }, 1000);
+
+    return () => clearTimeout(getData);
+  }, [search]);
 
   const onChangeSearch = function (value) {
     setSearch(value.target.value);
-    searchPost(search);
-    console.log(search);
   };
 
   return (
