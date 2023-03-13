@@ -48,7 +48,6 @@ export default function PostItemsPerson({
     const formData = new FormData();
     formData.append("user", userId);
     formData.append("music", _id);
-    console.log(userId, _id);
     axios
       .post(`${apiUrl}/favorites`, formData)
       .then((response) => {

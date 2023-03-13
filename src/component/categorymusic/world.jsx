@@ -14,7 +14,6 @@ export default function World() {
   const getCategory = musics.filter((music) => {
     return music.musicCategory == "other";
   });
-  console.log(getCategory);
 
   if (musicsLoading) {
     return (

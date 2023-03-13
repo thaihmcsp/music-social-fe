@@ -14,7 +14,6 @@ import MusicContextProvider from "./contexts/musicContext";
 import PostContextProvider from "./contexts/postContext";
 import FavoriteContextProvider from "./contexts/farvoriteContext";
 import CommentContextProvider from "./contexts/cmtContext";
-
 function App() {
   return (
     <AuthContextProvider>

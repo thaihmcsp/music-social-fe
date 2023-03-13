@@ -17,13 +17,10 @@ export default function Header() {
 
   const logout = () => {
     logoutUser();
-
-    console.log(isAuthenticated);
+    // localStorage.setItem("user", JSON.stringify(null));
   };
   // search function
-  const { 
-    searchPost 
-  } = useContext(PostContext);
+  const { searchPost } = useContext(PostContext);
   // const { searchData } = useSelector
   const [search, setSearch] = useState("");
 

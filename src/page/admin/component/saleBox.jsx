@@ -8,8 +8,6 @@ export default function SaleBox() {
   } = useContext(PostContext);
   useEffect(() => getPosts(), []);
 
-  console.log(posts);
-
   return (
     <div className="sales-boxes">
       <div className="recent-sales box">

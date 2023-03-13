@@ -14,7 +14,6 @@ export default function Edm() {
   const getCategory = musics.filter((music) => {
     return music.musicCategory == "edm";
   });
-  console.log(getCategory);
 
   if (musicsLoading) {
     return (

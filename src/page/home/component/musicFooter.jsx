@@ -15,7 +15,6 @@ export default function MusicFooter() {
   // const [audioIndex, setAudioIndex] = useState(0);
   // const [currentTime, setCurrentTime] = useState(0);
   // const [duration, setDuration] = useState(0);
-  console.log(playBtn);
   const [isPlay, setPlay] = useState(false);
 
   const handlePausePlayClick = async (e) => {
@@ -32,7 +31,6 @@ export default function MusicFooter() {
         playBtn.classList.add("fa-pause");
 
         // setmusicFirst(musicHome.musicFile);
-        // console.log(musicFirst);
       }
 
       setPlay(!isPlay);

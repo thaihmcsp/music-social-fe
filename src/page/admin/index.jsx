@@ -20,8 +20,6 @@ export default function Admin() {
 
   const logout = () => {
     logoutUser();
-
-    console.log(isAuthenticated);
   };
 
   return (

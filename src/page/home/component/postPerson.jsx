@@ -19,7 +19,6 @@ export default function PostPerson() {
 
   // start get all posts
   useEffect(() => getPosts(), []);
-  console.log(userId);
 
   // check id for render post data
   const checkIdpost = posts.filter((post) => {
@@ -45,7 +44,6 @@ export default function PostPerson() {
     return (
       <div className="postperson post-list post-list-1">
         {checkIdpost.map((post) => {
-          console.log("postId", post);
           return <PostItemsPerson post={post} />;
         })}
       </div>

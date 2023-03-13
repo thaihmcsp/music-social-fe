@@ -29,7 +29,6 @@ export default function Register() {
   //get file as user input
   const onChangeFileUserForm = function (event) {
     setRegister({ ...register, userAvatar: event.target.files[0] });
-    // console.log(event.target.files[0]);
   };
 
   // handle submit event in form with axios
@@ -47,7 +46,6 @@ export default function Register() {
     axios
       .post(`${apiUrl}/auth/register`, formData)
       .then((response) => {
-        console.log(response.data);
         if (response.data.success) {
           localStorage.setItem(
             LOCAL_STORAGE_TOKEN_NAME,

@@ -1,5 +1,12 @@
+import { EditOutlined } from "@ant-design/icons";
 import axios from "axios";
-import { default as React, useContext } from "react";
+import {
+  default as React,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { AuthContext } from "../contexts/authContext";
 import { CommentContext } from "../contexts/cmtContext";
 import {
@@ -12,9 +19,11 @@ import {
 import { FavoriteContext } from "../contexts/farvoriteContext";
 import { MusicContext } from "../contexts/musicContext";
 import PostLikeAndComment from "../page/home/component/postLikeAndComment";
+import "./postItems.scss";
 
 export default function PostItems({
   post: {
+    _id: postId,
     user: { userName, userAvatar },
     postContent,
     music: { _id, musicName, musicImg, musicAuthor, musicFile, musicLike },
@@ -22,6 +31,8 @@ export default function PostItems({
 }) {
   // set state for play btn
   const { getIdMusicHome } = useContext(MusicContext);
+  const [listComment, setListComment] = useState([]);
+  const [showListComment, setShowListCommet] = useState(false);
   const {
     authState: {
       user: { _id: userId },
@@ -32,7 +43,19 @@ export default function PostItems({
   const musicError = document.querySelector(".music__noti");
   const musicPlayed = document.querySelector(".music__audio");
   const musicFooter = document.querySelector(".music-footer .music__audio");
-  const musicFooterError = document.querySelector(".music-footer .music-notify");
+  const musicFooterError = document.querySelector(
+    ".music-footer .music-notify"
+  );
+
+  const getListComment = async () => {
+    const response = await axios.get(
+      `${apiUrl}/comments/get-comment-for-post/${postId}`
+    );
+    setListComment(response.data.comments);
+  };
+  useEffect(() => {
+    getListComment();
+  }, []);
 
   const progress = document.querySelector("#progress__input");
 
@@ -44,12 +67,13 @@ export default function PostItems({
     urlMusic.play();
     urlMusic.ontimeupdate = function () {
       if (urlMusic.duration) {
-        const progressPercen = (urlMusic.currentTime / urlMusic.duration) * 1000;
+        const progressPercen =
+          (urlMusic.currentTime / urlMusic.duration) * 1000;
         progress.value = progressPercen;
       }
     };
     playBtn.classList.add("fa-pause");
-    urlMusic.play()
+    urlMusic.play();
     musicError.style.display = "none";
     musicPlayed.style.display = "block";
     musicFooter.style.display = "flex";
@@ -80,6 +104,7 @@ export default function PostItems({
       });
   };
 
+  console.log("listComment", listComment);
   return (
     <div className="post__items">
       <div className="owner">
@@ -109,7 +134,30 @@ export default function PostItems({
         musiclikeCount={musicLike.length}
         isLike={musicLike.includes(userId)}
         userId={userId}
+        postId={postId}
       />
+      {listComment.length && !showListComment && (
+        <div
+          onClick={() => {
+            setShowListCommet(true);
+          }}
+        >
+          More comment
+        </div>
+      )}
+      {showListComment &&
+        listComment.map((item) => {
+          return (
+            <div className="list-comment-item">
+              <div className="d-flex">
+                <img src={`${apiUpload}/${item.user.userAvatar}`} />
+                <div>{item.user.userName}</div>
+              </div>
+              <div>{item.cmtContent}</div>
+              <EditOutlined />
+            </div>
+          );
+        })}
       {/* <div className="comment">
         <form action>
           <input

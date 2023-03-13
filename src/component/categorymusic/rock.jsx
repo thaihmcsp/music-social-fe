@@ -13,7 +13,6 @@ export default function Rock() {
   const getCategory = musics.filter((music) => {
     return music.musicCategory == "rock";
   });
-  console.log(getCategory);
 
   if (musicsLoading) {
     return (

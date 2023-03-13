@@ -14,7 +14,6 @@ export default function Cinematic() {
   const getCategory = musics.filter((music) => {
     return music.musicCategory == "cinematic";
   });
-  console.log(getCategory);
 
   if (musicsLoading) {
     return (
