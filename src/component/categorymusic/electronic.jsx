@@ -14,7 +14,6 @@ export default function Electronic() {
   const getCategory = musics.filter((music) => {
     return music.musicCategory == "electronic";
   });
-  console.log(getCategory);
 
   if (musicsLoading) {
     return (

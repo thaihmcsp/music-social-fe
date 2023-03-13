@@ -38,7 +38,6 @@ export default function PopupUpdatePost() {
 
     formData.append("postContent", inputPost.postContent);
 
-    console.log(formData);
     axios
       .put(`${apiUrl}/posts/update/${_id}`, formData)
       .then((response) => {

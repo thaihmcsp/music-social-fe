@@ -14,7 +14,6 @@ export default function Jazz() {
   const getCategory = musics.filter((music) => {
     return music.musicCategory == "jazz";
   });
-  console.log(getCategory);
 
   if (musicsLoading) {
     return (

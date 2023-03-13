@@ -19,10 +19,6 @@ export default function Music() {
     getPosts,
   } = useContext(PostContext);
 
-  // console.log("postHome_", posts);
-  // console.log("musicFile_", musicFile);
-  console.log("musicHome__", _id, postId);
-
   const playBtn = document.querySelector(".player-play");
   const urlMusic = document.querySelector(".progress__song");
   // const [audioIndex, setAudioIndex] = useState(0);
@@ -42,7 +38,6 @@ export default function Music() {
         urlMusic.play();
         playBtn.classList.add("fa-pause");
         // setmusicFirst(musicHome.musicFile);
-        // console.log(musicFirst);
       }
 
       setPlay(!isPlay);
@@ -75,7 +70,11 @@ export default function Music() {
       <div className="music__audio">
         <div className="music__audio-postcard">
           <div className="player">
-            <img src={`${apiUploadImgMp3}${musicImg}`} className="player__img" alt="" />
+            <img
+              src={`${apiUploadImgMp3}${musicImg}`}
+              className="player__img"
+              alt=""
+            />
           </div>
           <h4 className="player-title tilte">{musicName}</h4>
           <span className="player-author author">{musicAuthor}</span>
@@ -99,7 +98,10 @@ export default function Music() {
         </div>
         <div className="music__audio-btn">
           <i onClick={handlePre} className="fa fa-backward player-prev" />
-          <i onClick={handlePausePlayClick} className="fa fa-play player-play" />
+          <i
+            onClick={handlePausePlayClick}
+            className="fa fa-play player-play"
+          />
           <i onClick={handleNext} className="fa fa-forward player-next" />
         </div>
       </div>

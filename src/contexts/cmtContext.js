@@ -23,7 +23,6 @@ const CommentContextProvider = ({ children }) => {
     try {
       const response = await axios.get(`${apiUrl}/comments/datacmts`);
       if (response.data.success) {
-        console.log(response.data.comments);
         dispatch({
           type: COMMENTS_LOADED_SUCCESS,
           payload: response.data.comments,

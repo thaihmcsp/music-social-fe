@@ -12,7 +12,6 @@ export default function ListMusic({
     popupCreate.classList.add("active");
     findIDMusic(musicId);
   }
-  console.log(apiUploadFileMp3, musicFile);
 
   return (
     <div className="like">

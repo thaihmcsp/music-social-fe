@@ -104,6 +104,7 @@ export default function PostItems({
       });
   };
 
+  console.log("listComment", listComment);
   return (
     <div className="post__items">
       <div className="owner">

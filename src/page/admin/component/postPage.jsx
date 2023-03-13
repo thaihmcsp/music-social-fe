@@ -20,7 +20,6 @@ export default function PostPage() {
     }
     return post.user.userName == searchpost;
   });
-  console.log(postData);
 
   if (postsLoading) {
     return (
@@ -51,7 +50,6 @@ export default function PostPage() {
 
             <div className="list__post-admin">
               {postData.map((post) => {
-                console.log("post_postPage", post);
                 return <PostAdmin post={post} />;
               })}
             </div>

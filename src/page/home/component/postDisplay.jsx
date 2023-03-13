@@ -5,31 +5,30 @@ import { PostContext } from "../../../../src/contexts/postContext";
 import { CommentContext } from "../../../contexts/cmtContext";
 
 export default function PostDisplay() {
-  console.log("PostDisplay");
   // get global data by useContext
   const {
     postState: { searchpost, posts, postsLoading },
     getPosts,
   } = useContext(PostContext);
 
-  const [postData, setPostData] = useState([])
+  const [postData, setPostData] = useState([]);
   // start get all posts
   useEffect(() => getPosts(), []);
 
   useEffect(() => {
-    let newPostData = []
-    if(searchpost){
+    let newPostData = [];
+    if (searchpost) {
       for (const key in searchpost) {
-        newPostData.push(searchpost[key])
+        newPostData.push(searchpost[key]);
       }
-    }else{
+    } else {
       newPostData = posts.filter((post) => {
         if (post?.music) return post;
       });
     }
 
-    setPostData(newPostData)
-  }, [searchpost, posts])
+    setPostData(newPostData);
+  }, [searchpost, posts]);
 
   // search filter post
   // let postData = searchpost ? searchpost : posts.filter((post) => {

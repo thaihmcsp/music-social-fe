@@ -41,13 +41,11 @@ export default function PopupCreate() {
 
   const createPost = (e) => {
     e.preventDefault();
-    console.log(inputPost.music);
     // initialize formdata to store values in state and assign those values to name in input
     const formData = new FormData();
     formData.append("user", inputPost.user);
     formData.append("postContent", inputPost.postContent);
     formData.append("music", getMusicId);
-    console.log(formData);
     axios
       .post(`${apiUrl}/posts`, formData)
       .then((response) => {

@@ -45,7 +45,6 @@ const ProtectAdmin = ({ component: Component, ...rest }) => {
         />
       );
     }
-    console.log(decoded.userId);
   } else {
     <Redirect to="/login" />;
   }
