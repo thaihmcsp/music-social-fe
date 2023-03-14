@@ -6,3 +6,13 @@
   justify-content: space-between;
   border: 1px solid black;
 }
+
+.show-comment{
+  width: fit-content;
+  color: #216Fd8;
+  margin-top: 12px;
+}
+.show-comment:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
