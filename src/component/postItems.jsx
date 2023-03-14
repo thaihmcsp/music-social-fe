@@ -49,7 +49,6 @@ export default function PostItems({
   const musicFooterError = document.querySelector(
     ".music-footer .music-notify"
   );
-
   const getListComment = async () => {
     const response = await axios.get(
       `${apiUrl}/comments/get-comment-for-post/${postId}`
@@ -107,9 +106,23 @@ export default function PostItems({
       });
   };
 
-  console.log("listComment", listComment);
+  const showLessComment = () => {
+    if (showListComment && listComment.length) {
+      return (
+        <div
+          onClick={() => {
+            setShowListCommet(false);
+          }}
+          className="show-comment"
+        >
+          Show less comments
+        </div>
+      );
+    }
+  };
   return (
     <div className="post__items">
+      {listComment.length}
       <div className="owner">
         <img src={`${apiUpload}${userAvatar}`} alt="" />
         <a href="#">{userName}</a>
@@ -138,22 +151,35 @@ export default function PostItems({
         isLike={musicLike.includes(userId)}
         userId={userId}
         postId={postId}
+        getListComment={getListComment}
       />
+      {listComment.length}
       {listComment.length && !showListComment && (
         <div
           onClick={() => {
             setShowListCommet(true);
           }}
+          className="show-comment"
         >
-          More comment
+          Show {listComment.length} comments
         </div>
       )}
-      {showListComment &&
-        listComment.map((item) => {
-          return (
-            <CommentField token={token} item={item} apiUpload={apiUpload} />
-          );
-        })}
+      <div>
+        {showListComment &&
+          listComment.map((item) => {
+            return (
+              <CommentField
+                token={token}
+                item={item}
+                apiUpload={apiUpload}
+                getListComment={getListComment}
+                userId={userId}
+              />
+            );
+          })}
+
+        {showLessComment()}
+      </div>
       {/* <div className="comment">
         <form action>
           <input

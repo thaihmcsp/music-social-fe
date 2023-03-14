@@ -15,6 +15,7 @@ function PostLikeAndComment({
   musicId,
   userId,
   postId,
+  getListComment,
 }) {
   const [addStyle, setAddStyle] = useState(() => {
     if (isLike) {
@@ -46,11 +47,11 @@ function PostLikeAndComment({
     }
   };
 
-  const sendComment = async () => {
+  const sendComment = async (input) => {
     try {
       const response = await axios.post(
         `${apiUrl}/comments/post/${postId}`,
-        { cmtContent: comment },
+        { cmtContent: input ? input : comment },
         { headers: { Authorization: "Bearer " + token } }
       );
       notification.success({
@@ -62,10 +63,16 @@ function PostLikeAndComment({
   };
 
   useEffect(() => {
-    sendComment();
+    const createCommnet = async () => {
+      if (comment) {
+        await sendComment();
+      }
+      getListComment();
+    };
+    createCommnet();
   }, [comment]);
   return (
-    <div>
+    <div style={{ marginBottom: "12px" }}>
       <div style={{ display: "flex" }}>
         <div
           style={{ display: "flex", alignItems: "center", marginRight: "20px" }}
@@ -77,7 +84,12 @@ function PostLikeAndComment({
           />
           {likeCount}
         </div>
-        <Comment comment={comment} setComment={setComment} />
+        <Comment
+          comment={comment}
+          setComment={setComment}
+          getListComment={getListComment}
+          sendComment={sendComment}
+        />
       </div>
     </div>
   );
