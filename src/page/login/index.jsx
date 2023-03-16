@@ -34,8 +34,9 @@ export default function Login() {
     try {
       // call the function AuthContext use this page state
       const loginData = await loginUser(login);
-
+      console.log("loginData_", loginData);
       if (loginData.success) {
+        localStorage.setItem("userLogin", JSON.stringify(loginData.user));
         setAlertLogin({ type: "danger", message: loginData.message });
         setTimeout(() => setAlertLogin(null), 5000);
         // localStorage.setItem("user", JSON.stringify(loginData.user));

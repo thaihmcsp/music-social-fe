@@ -1,12 +1,6 @@
 import { EditOutlined } from "@ant-design/icons";
 import axios from "axios";
-import {
-  default as React,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { default as React, useContext, useEffect, useMemo, useState } from "react";
 import { AuthContext } from "../contexts/authContext";
 import { CommentContext } from "../contexts/cmtContext";
 import {
@@ -46,14 +40,10 @@ export default function PostItems({
   const musicError = document.querySelector(".music__noti");
   const musicPlayed = document.querySelector(".music__audio");
   const musicFooter = document.querySelector(".music-footer .music__audio");
-  const musicFooterError = document.querySelector(
-    ".music-footer .music-notify"
-  );
+  const musicFooterError = document.querySelector(".music-footer .music-notify");
 
   const getListComment = async () => {
-    const response = await axios.get(
-      `${apiUrl}/comments/get-comment-for-post/${postId}`
-    );
+    const response = await axios.get(`${apiUrl}/comments/get-comment-for-post/${postId}`);
     setListComment(response.data.comments);
   };
   useEffect(() => {
@@ -70,8 +60,7 @@ export default function PostItems({
     urlMusic.play();
     urlMusic.ontimeupdate = function () {
       if (urlMusic.duration) {
-        const progressPercen =
-          (urlMusic.currentTime / urlMusic.duration) * 1000;
+        const progressPercen = (urlMusic.currentTime / urlMusic.duration) * 1000;
         progress.value = progressPercen;
       }
     };
@@ -138,12 +127,14 @@ export default function PostItems({
         isLike={musicLike.includes(userId)}
         userId={userId}
         postId={postId}
+        getListComment={getListComment}
       />
       {listComment.length && !showListComment && (
         <div
           onClick={() => {
             setShowListCommet(true);
           }}
+          className="moreComment"
         >
           More comment
         </div>
@@ -151,7 +142,12 @@ export default function PostItems({
       {showListComment &&
         listComment.map((item) => {
           return (
-            <CommentField token={token} item={item} apiUpload={apiUpload} />
+            <CommentField
+              token={token}
+              item={item}
+              apiUpload={apiUpload}
+              getListComment={getListComment}
+            />
           );
         })}
       {/* <div className="comment">

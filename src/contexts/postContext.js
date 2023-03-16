@@ -48,8 +48,8 @@ const PostContextProvider = ({ children }) => {
   const searchPost = async (value) => {
     try {
       if (value === "") {
-        dispatch({ type: POST_SEARCH, payload: '' });
         return;
+        // dispatch({ type: POST_SEARCH, payload: '' });
       }
       const response = await axios.get(`${apiPost}/search/${value}`);
       if (response.data.success) {
@@ -64,8 +64,7 @@ const PostContextProvider = ({ children }) => {
   const deletePost = async (postId) => {
     try {
       const response = await axios.delete(`${apiUrl}/posts/delete/${postId}`);
-      if (response.data.success)
-        dispatch({ type: DELETE_POST, payload: postId });
+      if (response.data.success) dispatch({ type: DELETE_POST, payload: postId });
     } catch (error) {
       console.log(error);
     }
@@ -79,12 +78,7 @@ const PostContextProvider = ({ children }) => {
     findIDPost,
     searchPost,
   };
-  return (
-    <PostContext.Provider value={postContextData}>
-      {" "}
-      {children}{" "}
-    </PostContext.Provider>
-  );
+  return <PostContext.Provider value={postContextData}> {children} </PostContext.Provider>;
 };
 
 export default PostContextProvider;

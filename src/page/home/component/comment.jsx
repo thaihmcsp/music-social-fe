@@ -1,21 +1,24 @@
 import { RightCircleOutlined } from "@ant-design/icons";
-import { Input } from "antd";
+import { Input, Tooltip } from "antd";
 import React, { useState } from "react";
 
-function Comment({ setComment, comment }) {
-  const [changeValue, setChangeValue] = useState("");
+function Comment({ sendComment, comment, setComment }) {
   return (
     <Input
+      value={comment}
       defaultValue={""}
+      placeholder="Comment..."
       onChange={(e) => {
-        setChangeValue(e.target.value);
+        setComment(e.target.value);
       }}
       addonAfter={
-        <RightCircleOutlined
-          onClick={(e) => {
-            setComment(changeValue);
-          }}
-        />
+        <Tooltip placement="topLeft">
+          <RightCircleOutlined
+            onClick={(e) => {
+              sendComment();
+            }}
+          />
+        </Tooltip>
       }
     />
   );

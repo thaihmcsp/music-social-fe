@@ -18,6 +18,7 @@ export default function Header() {
   const logout = () => {
     logoutUser();
     // localStorage.setItem("user", JSON.stringify(null));
+    console.log(isAuthenticated);
   };
   // search function
   const { searchPost } = useContext(PostContext);
@@ -28,7 +29,6 @@ export default function Header() {
     const getData = setTimeout(async () => {
       const data = await searchPost(search);
     }, 1000);
-
     return () => clearTimeout(getData);
   }, [search]);
 
@@ -56,11 +56,7 @@ export default function Header() {
         </div>
         <div className="right">
           <div className="user">
-            <img
-              src={`${apiUpload}${userAvatar}`}
-              alt=""
-              className="user__avatar"
-            />
+            <img src={`${apiUpload}${userAvatar}`} alt="" className="user__avatar" />
             <div className="user__name">
               <h2 className="user__name-title">{userName}</h2>
             </div>

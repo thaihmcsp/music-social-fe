@@ -57,6 +57,7 @@ export default function PostDisplay() {
     return (
       <div className="postdisplay post-list post-list-0 ">
         {postData.map((post, i) => {
+          console.log("postItem_", post);
           return <PostItems post={post} key={i} />;
         })}
       </div>

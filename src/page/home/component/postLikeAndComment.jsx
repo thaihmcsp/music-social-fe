@@ -9,13 +9,7 @@ const LikeIcon = (style, addStyle) => {
   return <LikeFilled style={{ ...style, ...addStyle }} />;
 };
 
-function PostLikeAndComment({
-  isLike,
-  musiclikeCount,
-  musicId,
-  userId,
-  postId,
-}) {
+function PostLikeAndComment({ isLike, musiclikeCount, musicId, userId, postId, getListComment }) {
   const [addStyle, setAddStyle] = useState(() => {
     if (isLike) {
       return { color: "blue" };
@@ -53,6 +47,10 @@ function PostLikeAndComment({
         { cmtContent: comment },
         { headers: { Authorization: "Bearer " + token } }
       );
+      // Get lại list comment
+      await getListComment();
+      // Clear dữ liệu ô input
+      setComment("");
       notification.success({
         message: response.data.message,
       });
@@ -60,16 +58,19 @@ function PostLikeAndComment({
       console.log(error);
     }
   };
+  const resetInput = (cb) => {
+    cb();
+  };
 
   useEffect(() => {
-    sendComment();
-  }, [comment]);
+    if (comment != "") {
+      sendComment();
+    }
+  }, []);
   return (
     <div>
       <div style={{ display: "flex" }}>
-        <div
-          style={{ display: "flex", alignItems: "center", marginRight: "20px" }}
-        >
+        <div style={{ display: "flex", alignItems: "center", marginRight: "20px" }}>
           <Icon
             component={(style) => LikeIcon(style, addStyle)}
             onClick={clickLike}
@@ -77,7 +78,7 @@ function PostLikeAndComment({
           />
           {likeCount}
         </div>
-        <Comment comment={comment} setComment={setComment} />
+        <Comment comment={comment} sendComment={sendComment} setComment={setComment} />
       </div>
     </div>
   );
