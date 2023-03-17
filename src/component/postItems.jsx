@@ -29,6 +29,7 @@ export default function PostItems({
     user: { userName, userAvatar },
     postContent,
     music: { _id, musicName, musicImg, musicAuthor, musicFile, musicLike },
+    like: like,
   },
 }) {
   // set state for play btn
@@ -122,7 +123,6 @@ export default function PostItems({
   };
   return (
     <div className="post__items">
-      {listComment.length}
       <div className="owner">
         <img src={`${apiUpload}${userAvatar}`} alt="" />
         <a href="#">{userName}</a>
@@ -148,12 +148,12 @@ export default function PostItems({
       <PostLikeAndComment
         musicId={_id}
         musiclikeCount={musicLike.length}
-        isLike={musicLike.includes(userId)}
+        postLike={like.length}
+        isLike={like.includes(userId)}
         userId={userId}
         postId={postId}
         getListComment={getListComment}
       />
-      {listComment.length}
       {listComment.length && !showListComment && (
         <div
           onClick={() => {

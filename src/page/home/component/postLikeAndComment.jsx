@@ -16,6 +16,7 @@ function PostLikeAndComment({
   userId,
   postId,
   getListComment,
+  postLike,
 }) {
   const [addStyle, setAddStyle] = useState(() => {
     if (isLike) {
@@ -25,18 +26,18 @@ function PostLikeAndComment({
     return { color: "#9d99c3" };
   });
 
-  const [likeCount, setlikeCount] = useState(musiclikeCount);
+  const [likeCount, setlikeCount] = useState(postLike);
   const [comment, setComment] = useState("");
   const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
   const clickLike = async () => {
     try {
-      const response = await axios.post(
-        `${apiUrl}/music/like/${musicId}`,
+      const response = await axios.patch(
+        `${apiUrl}/posts/like-post/${postId}`,
         {},
         { headers: { Authorization: "Bearer " + token } }
       );
 
-      const listLike = response.data.data.musicLike;
+      const listLike = response.data.data.post.like;
       setlikeCount(listLike.length);
       if (listLike.includes(userId)) {
         return setAddStyle({ color: "blue" });
