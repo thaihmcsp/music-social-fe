@@ -8,11 +8,13 @@ function Comment({ setComment, comment, getListComment, sendComment }) {
   const writeComment = (e) => {
     if (e.keyCode === 13) {
       setComment(changeValue);
+      setChangeValue("");
     }
   };
   return (
     <Input
       defaultValue={""}
+      value={changeValue}
       onChange={(e) => {
         setChangeValue(e.target.value);
       }}
@@ -23,6 +25,7 @@ function Comment({ setComment, comment, getListComment, sendComment }) {
         <RightCircleOutlined
           onClick={(e) => {
             setComment(changeValue);
+            setChangeValue("");
           }}
         />
       }

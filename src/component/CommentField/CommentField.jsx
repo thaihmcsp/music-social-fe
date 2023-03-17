@@ -49,7 +49,7 @@ function CommentField({ item, apiUpload, token, getListComment, userId }) {
   const writeComment = (e) => {
     setChangeValue(e.target.value);
   };
-  console.log("item", item);
+
   const interactComment = () => {
     if (userId === item.user._id) {
       if (isEdit) {
