@@ -23,6 +23,7 @@ export default function PostItems({
     user: { userName, userAvatar },
     postContent,
     music: { _id, musicName, musicImg, musicAuthor, musicFile, musicLike },
+    like,
   },
 }) {
   // set state for play btn
@@ -123,20 +124,20 @@ export default function PostItems({
       </div>
       <PostLikeAndComment
         musicId={_id}
-        musiclikeCount={musicLike.length}
-        isLike={musicLike.includes(userId)}
+        musiclikeCount={like.length}
+        isLike={like.includes(userId)}
         userId={userId}
         postId={postId}
         getListComment={getListComment}
       />
-      {listComment.length && !showListComment && (
+      {listComment.length > 0 && !showListComment && (
         <div
           onClick={() => {
             setShowListCommet(true);
           }}
           className="moreComment"
         >
-          More comment
+          Show {listComment.length} comments
         </div>
       )}
       {showListComment &&
@@ -150,6 +151,17 @@ export default function PostItems({
             />
           );
         })}
+      {showListComment && (
+        <div
+          onClick={() => {
+            setShowListCommet(false);
+          }}
+          className="moreComment"
+        >
+          Show less comments
+        </div>
+      )}
+
       {/* <div className="comment">
         <form action>
           <input

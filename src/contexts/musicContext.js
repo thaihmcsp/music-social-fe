@@ -1,11 +1,8 @@
 import axios from "axios";
-import { createContext, useContext, useEffect, useReducer } from "react";
-import { musicReducer } from "../reducers/musicReducer";
+import { createContext, useEffect, useReducer } from "react";
+import { musicReducer, statemusic } from "../reducers/musicReducer";
 import {
-  api,
   apiPost,
-  apiUrl,
-  DELETE_MUSIC,
   MUSICS_LOADED_FAIL,
   MUSICS_LOADED_SUCCESS,
   MUSIC_CLICK,
@@ -13,11 +10,7 @@ import {
   MUSIC_CLICK_HOME,
   MUSIC_CLICK_NEXT,
   MUSIC_CLICK_PRE,
-  POSTS_LOADED_FAIL,
-  POSTS_LOADED_SUCCESS,
 } from "./constants";
-import { statemusic } from "../reducers/musicReducer";
-import { PostContext } from "./postContext";
 
 export const MusicContext = createContext();
 
@@ -43,10 +36,12 @@ const MusicContextProvider = ({ children }) => {
       if (response.data.success) {
         dispatch({
           type: MUSICS_LOADED_SUCCESS,
-          payload: response.data.posts.map((e) => {
-            const newMusic = {...e.music, postId: e._id }
-            return newMusic
-          }).reverse(),
+          payload: response.data.posts
+            .map((e) => {
+              const newMusic = { ...e.music, postId: e._id };
+              return newMusic;
+            })
+            .reverse(),
         });
       }
     } catch (error) {
@@ -74,7 +69,9 @@ const MusicContextProvider = ({ children }) => {
     const musicGet = musicState.musics.findIndex((music) => music.postId === musicPostIdHome);
     dispatch({
       type: MUSIC_CLICK_NEXT,
-      payload: musicState.musics[musicGet + 1] ? musicState.musics[musicGet + 1] : musicState.musics[0],
+      payload: musicState.musics[musicGet + 1]
+        ? musicState.musics[musicGet + 1]
+        : musicState.musics[0],
     });
   };
   // Tìm ra bài hát pre (Bài hát pre so với bài hát hiện tại)
@@ -82,7 +79,9 @@ const MusicContextProvider = ({ children }) => {
     const musicGet = musicState.musics.findIndex((music) => music.postId === musicPostIdHome);
     dispatch({
       type: MUSIC_CLICK_PRE,
-      payload: musicState.musics[musicGet - 1] ? musicState.musics[musicGet - 1] : musicState.musics[musicState.musics.length - 1],
+      payload: musicState.musics[musicGet - 1]
+        ? musicState.musics[musicGet - 1]
+        : musicState.musics[musicState.musics.length - 1],
     });
   };
   // Find id music when user click play music at favorite page

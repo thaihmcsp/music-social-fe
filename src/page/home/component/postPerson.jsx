@@ -18,7 +18,10 @@ export default function PostPerson() {
   } = useContext(AuthContext);
 
   // start get all posts
-  useEffect(() => getPosts(), []);
+  useEffect(() => {
+    console.log("getPost_");
+    getPosts();
+  }, []);
 
   // check id for render post data
   const checkIdpost = posts.filter((post) => {

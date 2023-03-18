@@ -22,7 +22,7 @@ export default function PostFavorite() {
 
   // check id for render favorites data
   const checkIdFavorite = favorites.filter((favorite) => {
-    return favorite.user._id === userId;
+    return favorite.user._id === userId && favorite.music != null;
   });
 
   const deleteFavoriteClick = (favoriteId) => {
@@ -52,24 +52,30 @@ export default function PostFavorite() {
           <div className="favorites">
             <h3 className="title">My favorite playlist</h3>
             <div className="box__favor">
-              {checkIdFavorite.map((favorite) => (
-                <div className="like">
-                  <img
-                    src={`${apiUploadImgMp3}${favorite.music.musicImg}`}
-                    className="img"
-                    alt=""
-                  />
-                  <h4 className="name">{favorite.music.musicName}</h4>
-                  <h4 className="author">{favorite.music.musicAuthor}</h4>
-                  <a href="#">
-                    <i
-                      onClick={deleteFavoriteClick.bind(this, favorite._id)}
-                      className="fa fa-heart"
+              {checkIdFavorite.map((favorite) => {
+                console.log("favoriteList_", favorite);
+                return (
+                  <div className="like">
+                    <img
+                      src={`${apiUploadImgMp3}${favorite.music.musicImg}`}
+                      className="img"
+                      alt=""
                     />
-                  </a>
-                  <audio className="audio" src={`${apiUploadFileMp3}${favorite.music.musicFile}`} />
-                </div>
-              ))}
+                    <h4 className="name">{favorite.music.musicName}</h4>
+                    <h4 className="author">{favorite.music.musicAuthor}</h4>
+                    <a href="#">
+                      <i
+                        onClick={deleteFavoriteClick.bind(this, favorite._id)}
+                        className="fa fa-heart"
+                      />
+                    </a>
+                    <audio
+                      className="audio"
+                      src={`${apiUploadFileMp3}${favorite.music.musicFile}`}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

@@ -1,5 +1,8 @@
+import { LikeFilled } from "@ant-design/icons";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
+import deleteimg from "../component/img/delete.png";
+import editimg from "../component/img/editing.png";
 import { AuthContext } from "../contexts/authContext";
 import { CommentContext } from "../contexts/cmtContext";
 import {
@@ -8,24 +11,32 @@ import {
   apiUploadFileMp3,
   apiUploadImgMp3,
   apiUrl,
+  LOCAL_STORAGE_TOKEN_NAME,
 } from "../contexts/constants";
 import { FavoriteContext } from "../contexts/farvoriteContext";
 import { MusicContext } from "../contexts/musicContext";
-import editimg from "../component/img/editing.png";
-import deleteimg from "../component/img/delete.png";
-import PopupUpdatePost from "../page/home/component/popupUpdatepost";
 import { PostContext } from "../contexts/postContext";
+import PopupUpdatePost from "../page/home/component/popupUpdatepost";
+import PostLikeAndComment from "../page/home/component/postLikeAndComment";
+import CommentField from "./CommentField/CommentField";
+const LikeIcon = (style, addStyle) => {
+  return <LikeFilled style={{ ...style, ...addStyle }} />;
+};
 
 export default function PostItemsPerson({
   post: {
     _id: postId,
     user: { userName, userAvatar },
     postContent,
-    music: { _id, musicName, musicImg, musicAuthor, musicFile },
+    music: { _id, musicName, musicImg, musicAuthor, musicFile, musicLike },
+    like,
   },
 }) {
+  const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
   // set state for play btn
   const { getIdMusicHome } = useContext(MusicContext);
+  const [listComment, setListComment] = useState([]);
+  const [showListComment, setShowListCommet] = useState(false);
   const {
     authState: {
       user: { _id: userId },
@@ -76,31 +87,26 @@ export default function PostItemsPerson({
   }
 
   const deletePostId = (postId) => {
-    const promtPost = window.confirm(
-      `Are you sure you want to delete this's post`
-    );
+    const promtPost = window.confirm(`Are you sure you want to delete this's post`);
     if (promtPost) {
       deletePost(postId);
     }
   };
+  const getListComment = async () => {
+    const response = await axios.get(`${apiUrl}/comments/get-comment-for-post/${postId}`);
+    setListComment(response.data.comments);
+  };
+  useEffect(() => {
+    getListComment();
+  }, []);
 
   return (
     <div className="post__items">
       <div className="owner">
         <img src={`${apiUpload}${userAvatar}`} alt="" />
         <a href="#">{userName}</a>
-        <img
-          onClick={onPopupMusic.bind(this, postId)}
-          id="edit"
-          src={editimg}
-          alt=""
-        />
-        <img
-          onClick={deletePostId.bind(this, postId)}
-          id="edit"
-          src={deleteimg}
-          alt=""
-        />
+        <img onClick={onPopupMusic.bind(this, postId)} id="edit" src={editimg} alt="" />
+        <img onClick={deletePostId.bind(this, postId)} id="edit" src={deleteimg} alt="" />
       </div>
       <div className="contents">
         <span className="content">{postContent}</span>
@@ -119,6 +125,36 @@ export default function PostItemsPerson({
 
         <audio className="audio" src={`${apiUploadFileMp3}${musicFile}`} />
       </div>
+      <PostLikeAndComment
+        musicId={_id}
+        musiclikeCount={like.length}
+        isLike={like.includes(userId)}
+        userId={userId}
+        postId={postId}
+        getListComment={getListComment}
+      />
+      {console.log("listComment_", listComment)}
+      {listComment.length > 0 && !showListComment && (
+        <div
+          onClick={() => {
+            setShowListCommet(true);
+          }}
+          className="moreComment"
+        >
+          More comment
+        </div>
+      )}
+      {showListComment &&
+        listComment.map((item) => {
+          return (
+            <CommentField
+              token={token}
+              item={item}
+              apiUpload={apiUpload}
+              getListComment={getListComment}
+            />
+          );
+        })}
       {/* <div className="comment">
         <form action>
           <input

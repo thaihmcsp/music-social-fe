@@ -9,7 +9,19 @@ const LikeIcon = (style, addStyle) => {
   return <LikeFilled style={{ ...style, ...addStyle }} />;
 };
 
-function PostLikeAndComment({ isLike, musiclikeCount, musicId, userId, postId, getListComment }) {
+function PostLikeAndComment(props) {
+  const { isLike, musiclikeCount, musicId, userId, postId, getListComment } = props;
+  const [likeCount, setlikeCount] = useState(musiclikeCount);
+  useEffect(() => {
+    setlikeCount(musiclikeCount);
+    setAddStyle(() => {
+      if (isLike) {
+        return { color: "blue" };
+      }
+
+      return { color: "#9d99c3" };
+    });
+  }, [musiclikeCount]);
   const [addStyle, setAddStyle] = useState(() => {
     if (isLike) {
       return { color: "blue" };
@@ -17,19 +29,21 @@ function PostLikeAndComment({ isLike, musiclikeCount, musicId, userId, postId, g
 
     return { color: "#9d99c3" };
   });
+  console.log("like_21", musiclikeCount);
 
-  const [likeCount, setlikeCount] = useState(musiclikeCount);
   const [comment, setComment] = useState("");
   const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
   const clickLike = async () => {
     try {
-      const response = await axios.post(
-        `${apiUrl}/music/like/${musicId}`,
+      const response = await axios.patch(
+        // `${apiUrl}/music/like/${musicId}`,//API get like on music
+        `${apiUrl}/posts/like-post/${postId}`, // Api get like on post
         {},
         { headers: { Authorization: "Bearer " + token } }
       );
-
-      const listLike = response.data.data.musicLike;
+      // const listLike = response.data.data.musicLike;//like theo music
+      const listLike = response.data.data.post.like; //like theo post
+      console.log("listLike_", listLike);
       setlikeCount(listLike.length);
       if (listLike.includes(userId)) {
         return setAddStyle({ color: "blue" });
@@ -58,15 +72,13 @@ function PostLikeAndComment({ isLike, musiclikeCount, musicId, userId, postId, g
       console.log(error);
     }
   };
-  const resetInput = (cb) => {
-    cb();
-  };
 
   useEffect(() => {
     if (comment != "") {
       sendComment();
     }
   }, []);
+
   return (
     <div>
       <div style={{ display: "flex" }}>

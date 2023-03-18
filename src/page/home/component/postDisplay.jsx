@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import PostItems from "../../../component/postItems";
 import { PostContext } from "../../../../src/contexts/postContext";
+import PostItems from "../../../component/postItems";
 // import Ripple from "@bit/joshk.react-spinners-css.ripple";
-import { CommentContext } from "../../../contexts/cmtContext";
 
 export default function PostDisplay() {
   // get global data by useContext
@@ -11,16 +10,21 @@ export default function PostDisplay() {
     getPosts,
   } = useContext(PostContext);
 
+  console.log("searchpost", searchpost);
+  const arrayID = Object.values(searchpost).map((item) => item._id);
   const [postData, setPostData] = useState([]);
   // start get all posts
   useEffect(() => getPosts(), []);
-
+  console.log("Post__", posts);
   useEffect(() => {
     let newPostData = [];
     if (searchpost) {
-      for (const key in searchpost) {
-        newPostData.push(searchpost[key]);
-      }
+      const res = posts.filter((item) => arrayID.includes(item._id));
+      console.log("res_", res);
+      newPostData = [...res];
+      // for (const key in searchpost) {
+      //   newPostData.push(searchpost[key]);
+      // }
     } else {
       newPostData = posts.filter((post) => {
         if (post?.music) return post;
