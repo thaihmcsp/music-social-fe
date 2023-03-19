@@ -14,7 +14,7 @@ export default function PostDisplay() {
   const arrayID = Object.values(searchpost).map((item) => item._id);
   const [postData, setPostData] = useState([]);
   // start get all posts
-  useEffect(() => getPosts(), []);
+  useEffect(() => getPosts(), [searchpost]);
   console.log("Post__", posts);
   useEffect(() => {
     let newPostData = [];

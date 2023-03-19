@@ -141,7 +141,7 @@ export default function PostItemsPerson({
           }}
           className="moreComment"
         >
-          More comment
+          Show {listComment.length} comments
         </div>
       )}
       {showListComment &&
@@ -155,6 +155,16 @@ export default function PostItemsPerson({
             />
           );
         })}
+      {showListComment && (
+        <div
+          onClick={() => {
+            setShowListCommet(false);
+          }}
+          className="moreComment"
+        >
+          Show less comments
+        </div>
+      )}
       {/* <div className="comment">
         <form action>
           <input

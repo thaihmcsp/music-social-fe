@@ -33,10 +33,10 @@ export default function Header() {
   }, [search]);
 
   const onChangeSearch = function (value) {
-    if (value.target.value != "") {
-      setSearch(value.target.value);
-    } else {
-    }
+    // if (value.target.value != "") {
+    setSearch(value.target.value);
+    // } else {
+    // }
   };
 
   return (
