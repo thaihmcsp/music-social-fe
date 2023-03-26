@@ -75,9 +75,7 @@ function PostLikeAndComment({
   return (
     <div style={{ marginBottom: "12px" }}>
       <div style={{ display: "flex" }}>
-        <div
-          style={{ display: "flex", alignItems: "center", marginRight: "20px" }}
-        >
+        <div style={{ display: "flex", alignItems: "center", marginRight: "20px" }}>
           <Icon
             component={(style) => LikeIcon(style, addStyle)}
             onClick={clickLike}
