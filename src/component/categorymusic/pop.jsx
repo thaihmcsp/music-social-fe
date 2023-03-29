@@ -9,10 +9,12 @@ export default function Pop() {
   } = useContext(MusicContext);
   // start get all musics
   useEffect(() => getMusics(), []);
-
-  const getCategory = musics.filter((music) => {
+  const uniqueMusics = [...new Map(musics.map((item) => [item["musicName"], item])).values()];
+  console.log("uniqueObjArray", uniqueMusics);
+  const getCategory = uniqueMusics.filter((music) => {
     return music.musicCategory == "pop";
   });
+  console.log("getCategory", getCategory);
 
   if (musicsLoading) {
     return (
