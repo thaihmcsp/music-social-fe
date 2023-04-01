@@ -10,11 +10,11 @@ export default function EdmAdmin() {
   } = useContext(MusicContext);
   // start get all musics
   useEffect(() => getMusics(), []);
-
-  const getCategory = musics.filter((music) => {
+  const uniqueMusics = [...new Map(musics.map((item) => [item["musicName"], item])).values()];
+  console.log("uniqueObjArray", uniqueMusics);
+  const getCategory = uniqueMusics.filter((music) => {
     return music.musicCategory == "edm";
   });
-
   if (musicsLoading) {
     return (
       <div style={{ width: "100%", height: "100vh", position: "absolute" }}>

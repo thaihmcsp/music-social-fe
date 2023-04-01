@@ -9,12 +9,26 @@ import PopupMusic from "./popupMusic";
 export default function ListMusicAdmin({
   music: { _id, musicName, musicAuthor, musicImg, musicFile },
 }) {
-  const { music, dispatch, findIDMusic } = useContext(MusicContext);
+  const { music, dispatch, findIDMusic, deleteMusic } = useContext(MusicContext);
 
   function editMussic(musicId) {
     findIDMusic(musicId);
     const popUpEdit = document.querySelector(".edit-popup");
     setTimeout(() => popUpEdit.classList.add("active"), 500);
+  }
+  function deleteMussic(musicId) {
+    // findIDMusic(musicId);
+    // alert("Delete Music", findIDMusic(musicId));
+    console.log("ID_", musicId);
+    if (window.confirm("Are you sure want to delete this music?")) {
+      deleteMusic(musicId);
+      // Save it!
+    } else {
+      // Do nothing!
+    }
+
+    // const popUpEdit = document.querySelector(".edit-popup");
+    // setTimeout(() => popUpEdit.classList.add("active"), 500);
   }
 
   // // close popup
@@ -81,6 +95,9 @@ export default function ListMusicAdmin({
       <audio className="audio" src={`${apiUploadFileMp3}${musicFile}`} />
       <button className="item-create edit" onClick={editMussic.bind(this, _id)}>
         Edit
+      </button>
+      <button className="item-create edit" onClick={deleteMussic.bind(this, _id)}>
+        Delete
       </button>
       <PopupMusic />
     </div>

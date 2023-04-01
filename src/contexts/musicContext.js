@@ -3,6 +3,8 @@ import { createContext, useEffect, useReducer } from "react";
 import { musicReducer, statemusic } from "../reducers/musicReducer";
 import {
   apiPost,
+  apiUrl,
+  LOCAL_STORAGE_TOKEN_NAME,
   MUSICS_LOADED_FAIL,
   MUSICS_LOADED_SUCCESS,
   MUSIC_CLICK,
@@ -92,6 +94,18 @@ const MusicContextProvider = ({ children }) => {
       payload: musicGet,
     });
   };
+  const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME);
+  //Delete music
+  const deleteMusic = async (id) => {
+    try {
+      const response = await axios.delete(`${apiUrl}/music/delete/${id}`, {
+        headers: { Authorization: "Bearer " + token },
+      });
+      await getMusics();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // music context data
   const musicContextData = {
@@ -102,6 +116,7 @@ const MusicContextProvider = ({ children }) => {
     getIdMusicNext,
     getIdMusicPre,
     getIdMusicFavorite,
+    deleteMusic,
   };
   return <MusicContext.Provider value={musicContextData}> {children} </MusicContext.Provider>;
 };
