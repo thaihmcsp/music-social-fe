@@ -27,8 +27,7 @@ export default function AcousticAdmin() {
             transform: "translate(-50%, -50%)",
           }}
           color="#be97e8"
-        />{" "}
-        ;{" "} */}
+        />*/}
       </div>
     );
   } else {

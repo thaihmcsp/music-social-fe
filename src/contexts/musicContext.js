@@ -22,33 +22,33 @@ const MusicContextProvider = ({ children }) => {
 
   // Get all posts
   const getMusics = async () => {
-    // try {
-    //   const response = await axios.get(`${apiUrl}/music`);
-    //   if (response.data.success) {
-    //     dispatch({
-    //       type: MUSICS_LOADED_SUCCESS,
-    //       payload: response.data.musics,
-    //     });
-    //   }
-    // } catch (error) {
-    //   dispatch({ type: MUSICS_LOADED_FAIL });
-    // }
     try {
-      const response = await axios.get(`${apiPost}/datapost`);
+      const response = await axios.get(`${apiUrl}/music`);
       if (response.data.success) {
         dispatch({
           type: MUSICS_LOADED_SUCCESS,
-          payload: response.data.posts
-            .map((e) => {
-              const newMusic = { ...e.music, postId: e._id };
-              return newMusic;
-            })
-            .reverse(),
+          payload: response.data.musics,
         });
       }
     } catch (error) {
       dispatch({ type: MUSICS_LOADED_FAIL });
     }
+    // try {
+    //   const response = await axios.get(`${apiPost}/datapost`);
+    //   if (response.data.success) {
+    //     dispatch({
+    //       type: MUSICS_LOADED_SUCCESS,
+    //       payload: response.data.posts
+    //         .map((e) => {
+    //           const newMusic = { ...e.music, postId: e._id };
+    //           return newMusic;
+    //         })
+    //         .reverse(),
+    //     });
+    //   }
+    // } catch (error) {
+    //   dispatch({ type: MUSICS_LOADED_FAIL });
+    // }
   };
 
   // Find id music when user is updating post

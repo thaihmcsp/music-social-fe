@@ -19,9 +19,7 @@ export default function CategoryMusic() {
       <div className="category">
         <div className="category__title">
           <h3>Create new post</h3>
-          <span>
-            Create your new post with a piece of music that you love or see fit
-          </span>
+          <span>Create your new post with a piece of music that you love or see fit</span>
         </div>
         <div className="category__list">
           <NavLink exact to={`${path}/`} className="category__list-item">

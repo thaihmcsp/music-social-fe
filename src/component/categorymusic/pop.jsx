@@ -7,8 +7,10 @@ export default function Pop() {
     musicState: { music, musics, musicsLoading },
     getMusics,
   } = useContext(MusicContext);
+
   // start get all musics
   useEffect(() => getMusics(), []);
+  console.log("music_", musics);
   const uniqueMusics = [...new Map(musics.map((item) => [item["musicName"], item])).values()];
   console.log("uniqueObjArray", uniqueMusics);
   const getCategory = uniqueMusics.filter((music) => {
